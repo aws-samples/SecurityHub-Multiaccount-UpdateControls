@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Creates a new role named 'ManageSecurityHubControlsExecutionRole' in accounts to allow a Security Hub controls manager to manage security hub controls in all member accounts.
+
+Parameters:
+  SecurityHubControlsManagerPrincipalARN:
+    Type: String
+    Description: The ARN of the principal that will be allowed to assume the execution role in all accounts. You can find the ARN of the principal by clicking on the appropriate user or role in the IAM console
+
+Resources:
+  ManagedPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: ManageSecurityHubControlsPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: AllowToUpdateStandardControls
+            Effect: Allow
+            Action:
+              - 'securityhub:UpdateStandardsControl'
+            Resource: 'arn:aws:securityhub:*:*:hub/default'
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ManageSecurityHubControlsExecutionRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !Ref SecurityHubControlsManagerPrincipalARN
+            Action:
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Ref ManagedPolicy
+
+Outputs:
+  ManageSecurityHubControlsExecutionRoleARN:
+    Description: Name of the execution role that will be used in the script.
+    Value: !GetAtt ExecutionRole.Arn
