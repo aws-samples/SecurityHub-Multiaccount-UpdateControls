@@ -368,6 +368,5 @@ $ python SH-UpdateControls.py \
 ![](./img//media/image12.png)
 
 
-If you have feedback about this post, submit comments in the Comments
-section below. If you have trouble with the scripts then please open an
+If you have trouble with the scripts then please open an
 issue in GitHub.
