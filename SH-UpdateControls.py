@@ -208,7 +208,7 @@ if __name__ == '__main__':
                             response = sh_client.update_standards_control(
                                 StandardsControlArn=control_arn,
                                 ControlStatus='DISABLED',
-                                DisabledReason='"Disabled for testing"'
+                                DisabledReason=disabled_reason
                             )
                             if(response['ResponseMetadata']['HTTPStatusCode']==200):
                                 print("\nSuccessfully DISABLED control "+ control_arn )
