@@ -103,6 +103,7 @@ if __name__ == '__main__':
     required.add_argument('--control-action', type=str, required=True,help="For enabling controls use ENABLED for disabling use DISABLED")
     required.add_argument('--disabled-reason', type=str, help="Reason for disabling the controls. This arguement is NOT required if you are enabling controls")
     optional.add_argument('--profile', type=str, help="AWS CLI named profile to be used in the script. Make sure the credentials in this profile have permissions to assume the execution role in each account. If you do not use this argument the default profile will be used")
+    optional.add_argument('--regions-exception', type=str, help="AWS CLI named profile to be used in the script. Make sure the credentials in this profile have permissions to assume the execution role in each account. If you do not use this argument the default profile will be used")
     parser._action_groups.append(optional)
     args = parser.parse_args()
     accountslist=[]
@@ -177,6 +178,17 @@ if __name__ == '__main__':
     
     if args.regions == 'ALL':
             securityhub_regions = session.get_available_regions('securityhub')
+            if args.regions_exception:
+                securityhub_regions_exceptions = [str(item) for item in args.regions_exception.split(',')]
+                invalid_sh_regions_exception = list(set(securityhub_regions_exceptions).difference(securityhub_regions))
+
+                if invalid_sh_regions_exception:
+                    print("\nError: Invalid Security Hub exception region(s) {}".format(invalid_sh_regions_exception))
+                    logging.error("Invalid Security Hub exception region(s) {}".format(invalid_sh_regions_exception))
+                    quit()
+                
+                for region in securityhub_regions_exceptions:
+                    securityhub_regions.remove(region)
     else :
             securityhub_regions = [str(item) for item in args.regions.split(',')]
             all_securityhub_regions = session.get_available_regions('securityhub')
