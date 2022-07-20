@@ -1,6 +1,6 @@
 #cd /homw/ec2-user
 #sudo yum install git
-#git clone https://github.com/BagheriReza/SecurityHub-Multiaccount-UpdateControls.git
+#git clone https://github.com/BagheriReza/SecurityHub-Multiaccount-UpdateControls.git 
 
 install:
 	python3 -m venv SecurityHub-Multiaccount-UpdateControls/env
