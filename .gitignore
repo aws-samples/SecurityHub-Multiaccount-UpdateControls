@@ -13,6 +13,9 @@ crash.log
 *.log
 sso.sh
 ssologinall.sh
+run-disabling.sh
+run-enabling.sh
+auto.mak
 
 
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
