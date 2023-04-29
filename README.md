@@ -47,21 +47,21 @@ necessary permissions.
 
 ```--regions``` Comma separated list of regions to update SecurityHub controls. Do not add any spaces after comma. Specify ALL for considering all regions where Security Hub is available. If you provided a region where you have not enabled Security Hub, the script will skip this region and log the failure. 
 
-```--standard``` Enter the standard code **(AFSBP, CIS, PCIDSS).**
+```--standard``` Enter the standard code **(AFSBP, CIS1.2, CIS1.4, NIST-800-53, PCIDSS).**
 
-1.  AFSBP for [[AWS Foundational Security Best
-    Practices]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp.html)
+1.  AFSBP for [AWS Foundational Security Best
+    Practices](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp.html)
 
-2.  CIS1.2 for [[CIS v1.2.0 AWS
-    Foundations Benchmark]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html#cis1v2-standard)
+2.  CIS1.2 for [CIS v1.2.0 AWS
+    Foundations Benchmark](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html#cis1v2-standard)
 
-3.  CIS1.4 for [[CIS v1.4.0 AWS
-    Foundations Benchmark]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html#cis1v4-standard)
+3.  CIS1.4 for [CIS v1.4.0 AWS
+    Foundations Benchmark](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html#cis1v4-standard)
 
-4.  NIST-800-53 for [[National Institute of Standards and Technology (NIST) SP 800-53 Rev. 5]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/nist-standard.html)
+4.  NIST-800-53 for [National Institute of Standards and Technology (NIST) SP 800-53 Rev. 5](https://docs.aws.amazon.com/securityhub/latest/userguide/nist-standard.html)
 
-5.  PCIDSS for [[Payment Card Industry Data Security Standard (PCI
-    DSS)]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-pcidss.html)
+5.  PCIDSS for [Payment Card Industry Data Security Standard (PCI
+    DSS)](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-pcidss.html)
 
 
 The script works with one [Security Hub
