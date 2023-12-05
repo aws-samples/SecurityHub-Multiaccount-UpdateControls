@@ -47,16 +47,22 @@ necessary permissions.
 
 ```--regions``` Comma separated list of regions to update SecurityHub controls. Do not add any spaces after comma. Specify ALL for considering all regions where Security Hub is available. If you provided a region where you have not enabled Security Hub, the script will skip this region and log the failure. 
 
-```--standard``` Enter the standard code **(AFSBP, CIS, PCIDSS).**
+```--standard``` Enter the standard code **(AFSBP, CIS1.2, CIS1.4, NIST-800-53, PCIDSS).**
 
-1.  AFSBP for [[AWS Foundational Security Best
-    Practices]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp.html)
+1.  AFSBP for [AWS Foundational Security Best
+    Practices](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp.html)
 
-2.  CIS for [[CIS AWS
-    Foundations]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-cis.html)
+2.  CIS1.2 for [CIS v1.2.0 AWS
+    Foundations Benchmark](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html#cis1v2-standard)
 
-3.  PCIDSS for [[Payment Card Industry Data Security Standard (PCI
-    DSS)]{.ul}](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-pcidss.html)
+3.  CIS1.4 for [CIS v1.4.0 AWS
+    Foundations Benchmark](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html#cis1v4-standard)
+
+4.  NIST-800-53 for [National Institute of Standards and Technology (NIST) SP 800-53 Rev. 5](https://docs.aws.amazon.com/securityhub/latest/userguide/nist-standard.html)
+
+5.  PCIDSS for [Payment Card Industry Data Security Standard (PCI
+    DSS)](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-pcidss.html)
+
 
 The script works with one [Security Hub
 Standard](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html)
@@ -65,7 +71,7 @@ execution. If you want to disable multiple controls across AFSBP and CIS
 standards you have to execute the script twice once each for AFSBP and
 CIS controls.
 
-```--control-id-list ```Comma separated list of controls, example for CIS enter - (1.1,1.2) or PCIDSS enter - (PCI.AutoScaling.1,PCI.CloudTrail.4). Do not add any spaces after comma. Control IDs can be found from the Security hub console → Security Standards → view results ---> ID Column in the enabled controls table. 
+```--control-id-list ```Comma separated list of controls, example for CIS1.2 enter - (1.1,1.2) or PCIDSS enter - (PCI.AutoScaling.1,PCI.CloudTrail.4) or CIS1.4 - (3.3) or NIST-800-53 - (CloudWatch.16). Do not add any spaces after comma. Control IDs can be found from the Security hub console → Security Standards → view results ---> ID Column in the enabled controls table. 
 
 ![](./img//media/image1.png)
 
@@ -350,6 +356,7 @@ Enter account IDs one account per line, then save the file.
 
 13. Execute the script
 
+Example for PCI DSS
 ```
 $ python SH-UpdateControls.py \
 --input-file accounts.csv \
@@ -357,6 +364,29 @@ $ python SH-UpdateControls.py \
 --regions us-west-1,eu-west-1,ap-southeast-1 \
 --standard PCIDSS \
 --control-id-list PCI.CodeBuild.1,PCI.CodeBuild.2 \
+--control-action ENABLED
+```
+
+Example for CIS v1.4.0
+```
+$ python SH-UpdateControls.py \
+--input-file accounts.csv \
+--assume-role ManageSecurityHubControlsExecutionRole \
+--regions us-west-1,eu-west-1,ap-southeast-1 \
+--standard CIS1.4 \
+--control-id-list 3.3 \
+--control-action ENABLED
+```
+
+Example for NIST-800-53
+
+```
+$ python SH-UpdateControls.py \
+--input-file accounts.csv \
+--assume-role ManageSecurityHubControlsExecutionRole \
+--regions us-west-1,eu-west-1,ap-southeast-1 \
+--standard NIST-800-53 \
+--control-id-list CloudWatch.16 \
 --control-action ENABLED
 ```
 

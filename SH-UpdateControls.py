@@ -38,6 +38,11 @@ logging.basicConfig(format='%(asctime)s - %(levelname)-8s [%(filename)s:%(lineno
 logging.info('Initializing Update control script')
 
 
+VALID_STANDARDS = {'CIS1.2', 'CIS1.4', 'NIST-800-53','PCIDSS','AFSBP'}
+
+def valid_standard(standard):
+    if standard not in VALID_STANDARDS:
+        raise ValueError("results: Standard must be one of %r." % VALID_STANDARDS)
 
 def assume_role(profile, aws_account_number, role_name):
     """
@@ -98,8 +103,8 @@ if __name__ == '__main__':
     required.add_argument('--input-file', type=argparse.FileType('r'), help='Path to CSV file containing the list of account IDs')
     required.add_argument('--assume-role', type=str, required=True, help="Role name of the execution role in each account")
     required.add_argument('--regions', type=str, required=True, help="comma separated list of regions to update SecurityHub controls. Specify ALL for considering all available regions disabled")
-    required.add_argument('--standard', type=str, required=True,help="enter the standard code (CIS or PCIDSS or AFSBP for more info refer https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html")
-    required.add_argument('--control-id-list', type=str, required=True,help="comma separated list of controls, example for CIS enter -  (1.1,1.2) for PCIDSS enter - (PCI.AutoScaling.1,PCI.CloudTrail.4) )")
+    required.add_argument('--standard', type=str, required=True,help="enter the standard code (CIS1.2 or CIS1.4 or NIST-800-53 or PCIDSS or AFSBP for more info refer https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html")
+    required.add_argument('--control-id-list', type=str, required=True,help="comma separated list of controls, example for CIS enter -  (1.1,1.2,1.4) for PCIDSS enter - (PCI.AutoScaling.1,PCI.CloudTrail.4) )")
     required.add_argument('--control-action', type=str, required=True,help="For enabling controls use ENABLED for disabling use DISABLED")
     required.add_argument('--disabled-reason', type=str, help="Reason for disabling the controls. This arguement is NOT required if you are enabling controls")
     optional.add_argument('--profile', type=str, help="AWS CLI named profile to be used in the script. Make sure the credentials in this profile have permissions to assume the execution role in each account. If you do not use this argument the default profile will be used")
@@ -114,6 +119,8 @@ if __name__ == '__main__':
 
         standard_code=args.standard.upper()
         control_update_action=args.control_action.upper()
+
+        valid_standard(standard_code)
         
         if(control_update_action == 'DISABLED' or control_update_action == 'ENABLED'):
             if control_update_action == 'DISABLED' :
