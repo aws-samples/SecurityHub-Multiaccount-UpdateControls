@@ -1,5 +1,11 @@
 # Disabling Security Hub Controls in a Multi Account Environment
 
+*****
+> **Note:**<br>
+> Security Hub now supports central configuration for security standards and controls across accounts. 
+>
+> Security Hub's central configration feature addresses many of the scenarios that are covered by the scripts in this repository, reducing or eliminating the need to run these scripts.  Please refer to the [Security Hub central configuration documentation](https://docs.aws.amazon.com/securityhub/latest/userguide/central-configuration-intro.html) first before going forward with using these scripts.
+*****
 
 The 'update Security Hub controls' script is written in Python. It uses
 AWS SDK for Python (Boto3) to assume a 'cross account IAM role' in the
